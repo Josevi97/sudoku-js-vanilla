@@ -33,10 +33,10 @@ document.addEventListener('change', (e) => {
 // Añade el evento on click al boton de la alerta, para que cuando se haga
 // click, se reinicie la partida
 document.getElementById('alert__button').addEventListener('click', () => {
+	document.getElementById('alert').classList.add('invisible');
+
 	generateTable();
 	generateRandomCells();
-
-	document.getElementById('alert').classList.add('invisible');
 });
 
 // Genera la tabla y aplica ciertos identificadores tanto de id como de
@@ -102,7 +102,7 @@ const generateRandomCells = () => {
 		const td = data[random];
 		data = data.filter((d, index) => random != index);
 		td.classList.add('random');
-		td.value = generateRandomValue(td.classList);
+		td.value = generateRandomValue(td);
 		td.readOnly = true;
 	}
 };
@@ -110,11 +110,11 @@ const generateRandomCells = () => {
 // Genera valores aleatorios dado un grupo de clases. Clases que se utilizan
 // para que la funcion checkNumber compruebe para cada una de las clases, si
 // el numero aleatorio seria valido
-const generateRandomValue = (classes) => {
+const generateRandomValue = (td) => {
 	while (true) {
 		const random = Math.floor(Math.random() * 9 + 1);
 
-		if (checkNumber(random, classes, true)) {
+		if (checkNumber(random, td.classList, true)) {
 			return random;
 		}
 	}
@@ -125,11 +125,7 @@ const generateRandomValue = (classes) => {
 // Es decir, comprueba si para una celda dada, en base a su columna, fila y
 // grupo, el numero seria valido
 const checkNumber = (number, classes, auto) => {
-	const col = classes[0];
-	const row = classes[1];
-	const group = `${classes[2]} ${classes[3]}`;
-
-	classes = [col, row, group];
+	classes = [classes[0], classes[1], `${classes[2]} ${classes[3]}`];
 
 	for (let i = 0; i < classes.length; i++) {
 		const data = Array.prototype.slice.call(
