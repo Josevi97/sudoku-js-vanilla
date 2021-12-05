@@ -19,15 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
 // se comprueba si se trata de un numero entre 1 y 9 y si el numero dado es
 // valido. De no pasar este filtro, se vacia el input
 document.addEventListener('change', (e) => {
-	if (
-		!e.target.value.match('^[1-9]$') ||
-		!checkNumber(e.target.value, e.target.classList)
-	) {
-		e.target.value = '';
-		return;
-	}
+	e.target.classList.remove('success__animation');
+	e.target.classList.remove('error__animation');
 
-	e.target.blur();
+	setTimeout(() => {
+		if (
+			!e.target.value.match('^[1-9]$') ||
+			!checkNumber(e.target.value, e.target.classList)
+		) {
+			e.target.value = '';
+			e.target.classList.add('error__animation');
+			return;
+		}
+
+		e.target.blur();
+		e.target.classList.add('success__animation');
+	}, 100);
 });
 
 // Añade el evento on click al boton de la alerta, para que cuando se haga

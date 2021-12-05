@@ -97,6 +97,34 @@ main {
 	background-color: var(--value-readonly);
 }
 
+#table__content input.success__animation {
+	animation: cell__animation-success 1s;
+}
+
+#table__content input.error__animation {
+	animation: cell__animation-error 1s;
+}
+
 .invisible {
 	visibility: hidden;
+}
+
+@keyframes cell__animation-success {
+	0% {
+		background-color: #00ff00;
+	}
+
+	100% {
+		background-color: white;
+	}
+}
+
+@keyframes cell__animation-error {
+	0% {
+		background-color: #ff0000;
+	}
+
+	100% {
+		background-color: white;
+	}
 }
